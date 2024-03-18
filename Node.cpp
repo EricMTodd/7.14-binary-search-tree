@@ -1,6 +1,5 @@
 #include "Node.h"
 #include <iostream>
-
 using namespace std;
 
 Node::Node(int t_data, Node* t_left, Node* t_right) {
@@ -11,44 +10,53 @@ Node::Node(int t_data, Node* t_left, Node* t_right) {
 
 void Node::insert(int new_data) {
     if (new_data < data) {
-        if (left == nullptr)
+        if (left == nullptr) {
             left = new Node(new_data);
-        else
+        } else {
             left->insert(new_data);
-    } else {
-        if (right == nullptr)
+        }
+    } else if (new_data > data) {
+        if (right == nullptr) {
             right = new Node(new_data);
-        else
+        } else {
             right->insert(new_data);
+        }
     }
 }
 
 bool Node::isLeaf() {
-    return (left == nullptr && right == nullptr);
+    return left == nullptr && right == nullptr;
 }
 
 int Node::height() {
-    if (left == nullptr && right == nullptr)
-        return 0; // Height of leaf node is 0
-    else {
-        int left_height = (left == nullptr) ? -1 : left->height();
-        int right_height = (right == nullptr) ? -1 : right->height();
-        return 1 + max(left_height, right_height);
+    if (isLeaf()) {
+        return 0;
     }
+
+    int leftHeight = (left != nullptr) ? left->height() + 1 : 0;
+    int rightHeight = (right != nullptr) ? right->height() + 1 : 0;
+    return max(leftHeight, rightHeight);
 }
 
 bool Node::isFull() {
-    if (left == nullptr && right == nullptr)
-        return true; // Leaf node is considered full
-    else if (left != nullptr && right != nullptr)
-        return (left->isFull() && right->isFull());
-    else
-        return false; // One child only
+    if (isLeaf()) {
+        return true;
+    }
+
+    if ((left == nullptr) || (right == nullptr)) {
+        return false;
+    }
+
+    return left->isFull() && right->isFull();
 }
 
 int Node::countNodes() {
-    if (this == nullptr)
-        return 0;
-    else
-        return 1 + (left ? left->countNodes() : 0) + (right ? right->countNodes() : 0);
+    int count = 1;
+    if (left != nullptr) {
+        count += left->countNodes();
+    }
+    if (right != nullptr) {
+        count += right->countNodes();
+    }
+    return count;
 }
