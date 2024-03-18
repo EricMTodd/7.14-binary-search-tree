@@ -1,1 +1,3 @@
 # 7.14-binary-search-tree
+
+This week assignment is to fill in some basic functions for a binary search tree. I have provided you the header file and the function headers in the C++ class. I have also provided a basic test framework in the main program. I am providing the testbench to help you to test your own code, however I will be reviewing your submission to check for structure, recursive calls and generally quality. This program will not be automatically graded. The definition for the functions are standard interpretations and can be found in your book. All functions that operate on multiple levels of the tree should be recursive in nature - you will not receive full credit if your insert, isFull, height and countNodes functions are not recursive.
